@@ -51,7 +51,7 @@ class LikeImage(APIView):
 
             return Response(status=status.HTTP_201_CREATED)
 
-class CommantOnImage(APIView):
+class CommentOnImage(APIView):
 
     def Post(self, request, image_id, format=None):
 
