@@ -40,7 +40,7 @@ class LikeImage(APIView):
             )
             pre_existing_like.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-
+            
         except models.Like.DoesNotExist:
             new_like = models.Like.objects.create(
                 create = user,
@@ -50,3 +50,39 @@ class LikeImage(APIView):
             new_like.save()
 
             return Response(status=status.HTTP_201_CREATED)
+
+class CommantOnImage(APIView):
+
+    def Post(self, request, image_id, format=None):
+
+        user = request.user
+
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+        except models.Image.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+
+        comment_ser = serializers.CommentSerializer(data=request.data)
+
+        if comment_ser.is_valid():
+
+            comment_ser.save(creator=user, image=found_image)
+
+            return Response(data=comment_ser.data, status=status.HTTP_201_CREATED)
+        
+        else:
+
+            return Response(data=comment_ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Comment(APIView):
+
+    def delete(self, request, comment_id, format=None):
+
+        user = request.user
+        
+        try:
+            comment = models.Comment.objects.get(id=comment_id, creator=user)
+            comment.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except models.Comment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
