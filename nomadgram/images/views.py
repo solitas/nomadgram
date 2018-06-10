@@ -38,7 +38,6 @@ class LikeImage(APIView):
                 create = user,
                 image=found_image
             )
-            pre_existing_like.delete()
             return Response(status=status.HTTP_304_NOT_MODIFIED)
             
         except models.Like.DoesNotExist:
