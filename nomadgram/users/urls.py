@@ -10,5 +10,11 @@ urlpatterns = [
     url(
         regex=r'^(?P<username>\w+)/$', 
         view=views.UserProfile.as_view(), 
-        name='user_profile'),
+        name='user_profile'
+    ),
+    url(
+        regex=r'^(?P<username>\w+)/followers/$', 
+        view=views.UserFollowers.as_view(), 
+        name='user_followers'
+    ),
 ]
