@@ -17,6 +17,7 @@ urlpatterns = [
     # User management
     url(r"^users/",include("nomadgram.users.urls", namespace="users")),
     url(r"^images/",include("nomadgram.images.urls", namespace="images")),
+    url(r"^notifications/", include("nomadgram.notifications.urls", namespace="notifiactions")),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     

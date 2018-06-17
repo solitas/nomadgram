@@ -2,6 +2,14 @@ from rest_framework import serializers
 from . import models
 from nomadgram.users import models as user_models
 
+class SmallImageSerialier(serializers.ModelSerializer):
+    """ used for the notification """
+
+    class Meta:
+        model = models.Image
+        field= (
+            'file'
+        )
 
 class CountImageSerializer(serializers.ModelSerializer):
     
