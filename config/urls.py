@@ -5,14 +5,8 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from rest_framework_jwt.views import obtain_jwt_token
-
+from nomadgram import views
 urlpatterns = [
-    url(r"^$", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    url(
-        r"^about/$",
-        TemplateView.as_view(template_name="pages/about.html"),
-        name="about",
-    ),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
     # User management
@@ -22,6 +16,7 @@ urlpatterns = [
     url(r"^notifications/", include("nomadgram.notifications.urls", namespace="notifiactions")),
     url(r"^accounts/", include("allauth.urls")),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^', views.ReactAppView.as_view()),
     # Your stuff: custom urls includes go here
     
 ] + static(
